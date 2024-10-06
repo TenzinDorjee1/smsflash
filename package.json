@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "app": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/TenzinDorjee1/smsflash/issues"
   },
-  "homepage": "https://github.com/TenzinDorjee1/smsflash#readme"
+  "homepage": "https://github.com/TenzinDorjee1/smsflash#readme",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "mongoose": "^8.7.0",
+    "nodemon": "^3.1.7",
+    "twilio": "^5.3.3"
+  }
 }

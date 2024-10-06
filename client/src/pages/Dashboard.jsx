@@ -1,5 +1,6 @@
 // src/pages/Dashboard.jsx
 import React, { useState } from 'react';
+import axios from 'axios'; // Import axios
 import { Box, Button, Typography, Paper, TextField, MenuItem, FormControl, Select, InputLabel, Snackbar, Alert } from '@mui/material';
 
 function Dashboard() {
@@ -16,26 +17,37 @@ function Dashboard() {
   };
 
   // Handle Form Submission (SMS and Flashcards)
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (phoneNumber && frequency && flashCardQuestion && flashCardAnswer) {
       const newFlashcard = {
-        flashCardQuestion,
-        flashCardAnswer,
-        phoneNumber,
-        frequency,
+          Question: flashCardQuestion,
+          Answer: flashCardAnswer,
+          PhoneNumber: phoneNumber,
+          Frequency: frequency,
       };
 
-      // Save the new flashcard to the list
-      setFlashcards([...flashcards, newFlashcard]);
+      try {
+        // Send the new flashcard to the backend
+        const response = await axios.post('http://localhost:8013/api/enterFlash', newFlashcard);
 
-      // Clear the form after submission
-      setFlashCardQuestion('');
-      setFlashCardAnswer('');
-      setPhoneNumber('');
-      setFrequency('');
+        // Optionally, handle the response if needed
+        console.log(response.data);
 
-      // Show a snackbar alert
-      setOpenSnackbar(true);
+        // Save the new flashcard to the list
+        setFlashcards([...flashcards, newFlashcard]);
+
+        // Clear the form after submission
+        setFlashCardQuestion('');
+        setFlashCardAnswer('');
+        setPhoneNumber('');
+        setFrequency('');
+
+        // Show a snackbar alert
+        setOpenSnackbar(true);
+      } catch (error) {
+        console.error('Error saving flashcard:', error);
+        alert('Failed to save flashcard. Please try again.'); // Error alert
+      }
     } else {
       alert('Please fill in all the fields.');
     }
@@ -52,9 +64,6 @@ function Dashboard() {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '900px', mb: 4 }}>
         <Typography variant="h4" color="primary">
           OneFlash
-        </Typography>
-        <Typography variant="h6" color="textSecondary">
-          Welcome, User
         </Typography>
       </Box>
 
@@ -134,17 +143,17 @@ function Dashboard() {
 
       {/* Display saved flashcards */}
       {flashcards.length > 0 && (
-        <Box sx={{ width: '100%', maxWidth: '900px', mt: 4 }}>
-          <Typography variant="h6">Saved Flashcards</Typography>
-          {flashcards.map((card, index) => (
-            <Paper key={index} elevation={3} sx={{ p: 2, mt: 2 }}>
-              <Typography variant="subtitle1">Q: {card.flashCardQuestion}</Typography>
-              <Typography variant="subtitle2">A: {card.flashCardAnswer}</Typography>
-              <Typography variant="body2">SMS to: {card.phoneNumber}, Frequency: Every {card.frequency} hour(s)</Typography>
-            </Paper>
-          ))}
-        </Box>
-      )}
+  <Box sx={{ width: '100%', maxWidth: '900px', mt: 4 }}>
+    <Typography variant="h6">Saved Flashcards</Typography>
+    {flashcards.map((card, index) => (
+      <Paper key={index} elevation={3} sx={{ p: 2, mt: 2 }}>
+        <Typography variant="subtitle1">Q: {card.Question}</Typography> {/* Access the Question directly */}
+        <Typography variant="subtitle2">A: {card.Answer}</Typography>    {/* Access the Answer directly */}
+        <Typography variant="body2">SMS to: {card.PhoneNumber}, Frequency: Every {card.Frequency} hour(s)</Typography> {/* Access PhoneNumber and Frequency */}
+      </Paper>
+    ))}
+  </Box>
+)}
     </Box>
   );
 }
