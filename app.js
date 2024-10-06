@@ -1,13 +1,17 @@
+import dotenv from 'dotenv';
+dotenv.config()
+
 import express from 'express';
 import twilio from 'twilio';
 import FlashCardRoutes from './routes/flashroute.js';
 import mongoose from 'mongoose';
 import cors from 'cors'; 
+import { scheduleSMS } from './cron.js';
 const app = express();
 
 // Twilio credentials
-const accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Twilio Account SID
-const authToken = process.env.TWILIO_AUTH_TOKEN; // Your Twilio Auth Token
+const accountSid = 'AC0293c030291b8150bf9b24baa84d2ae1'; //process.env.TWILIO_ACCOUNT_SID; // Your Twilio Account SID
+const authToken = '4671ce9920e1e44fe6c23b63aad488a6' //process.env.TWILIO_AUTH_TOKEN; // Your Twilio Auth Token
 const client = twilio(accountSid, authToken);
 
 
@@ -69,3 +73,11 @@ app.listen(PORT, () => {
   
  // sendTestMessage();
 });
+
+// Call scheduleSMS for the first time
+
+
+// Set interval to call scheduleSMS every 2 minutes (120000 milliseconds)
+
+  console.log('Checking for flashcards to schedule SMS...');
+  scheduleSMS();

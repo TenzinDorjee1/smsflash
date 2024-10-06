@@ -12,7 +12,7 @@ const FlashCardSchema = new mongoose.Schema({
     required: true, // Answer is required
   },
   PhoneNumber: {
-    type: Number,
+    type: String,
     required: true, // Phone number is required
   },
   Frequency: {
