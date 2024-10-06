@@ -17,7 +17,7 @@ const client = twilio(accountSid, authToken);
 
 
 const connectDB = async () => {
-    console.log("he")
+    
   try {
     
     const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://newuser2:newUser2@cluster0.3d8fi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
