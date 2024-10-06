@@ -1,6 +1,5 @@
-// src/pages/Dashboard.jsx
 import React, { useState } from 'react';
-import axios from 'axios'; // Import axios
+import axios from 'axios'; 
 import { Box, Button, Typography, Paper, TextField, MenuItem, FormControl, Select, InputLabel, Snackbar, Alert } from '@mui/material';
 
 function Dashboard() {
@@ -8,8 +7,8 @@ function Dashboard() {
   const [flashCardAnswer, setFlashCardAnswer] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [frequency, setFrequency] = useState('');
-  const [flashcards, setFlashcards] = useState([]); // State to store flashcards
-  const [openSnackbar, setOpenSnackbar] = useState(false); // Snackbar state for alerts
+  const [flashcards, setFlashcards] = useState([]); 
+  const [openSnackbar, setOpenSnackbar] = useState(false); 
 
   // Handle Flashcard Question and Answer Change
   const handleFlashCardChange = (setter) => (e) => {
@@ -28,9 +27,9 @@ function Dashboard() {
 
       try {
         // Send the new flashcard to the backend
-        const response = await axios.post('http://localhost:8013/api/enterFlash', newFlashcard);
+        const response = await axios.post('http://localhost:8015/api/enterFlash', newFlashcard);
 
-        // Optionally, handle the response if needed
+        
         console.log(response.data);
 
         // Save the new flashcard to the list
@@ -46,7 +45,7 @@ function Dashboard() {
         setOpenSnackbar(true);
       } catch (error) {
         console.error('Error saving flashcard:', error);
-        alert('Failed to save flashcard. Please try again.'); // Error alert
+        alert('Failed to save flashcard. Please try again.');
       }
     } else {
       alert('Please fill in all the fields.');
@@ -63,7 +62,7 @@ function Dashboard() {
       {/* Header */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '900px', mb: 4 }}>
         <Typography variant="h4" color="primary">
-          OneFlash
+          SnapStudy
         </Typography>
       </Box>
 
@@ -113,7 +112,6 @@ function Dashboard() {
             <MenuItem value="6">Every 6 hours</MenuItem>
             <MenuItem value="12">Every 12 hours</MenuItem>
             <MenuItem value="24">Once a day</MenuItem>
-            <MenuItem value="custom">Custom time</MenuItem>
           </Select>
         </FormControl>
 
@@ -132,7 +130,7 @@ function Dashboard() {
       {/* Snackbar for confirmation alert */}
       <Snackbar
         open={openSnackbar}
-        autoHideDuration={4000} // Close after 4 seconds
+        autoHideDuration={4000} 
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} // Positioned at the bottom center
       >
