@@ -1,5 +1,5 @@
-const accountSid = 'AC0293c030291b8150bf9b24baa84d2ae1'; // Your Twilio Account SID
-const authToken = 'f0f7a19eeba01e3349dc0b96854b8026'; // Your Twilio Auth Token
+const accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Twilio Account SID
+const authToken = process.env.TWILIO_AUTH_TOKEN; // Your Twilio Auth Token
 const client = twilio(accountSid, authToken);
 
 
